@@ -11,24 +11,24 @@ from django.db import models
 
 
 class SyBook(models.Model):
-    name = models.CharField(db_column='Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    img = models.CharField(db_column='Img', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    author = models.CharField(db_column='Author', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    desc = models.TextField(db_column='Desc', blank=True, null=True)  # Field name made lowercase.
-    cid = models.IntegerField(db_column='CId', blank=True, null=True)  # Field name made lowercase.
-    cname = models.CharField(db_column='CName', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    bookstatus = models.CharField(db_column='BookStatus', max_length=20, blank=True, null=True)  # Field name made lowercase.
+    name = models.CharField(verbose_name='Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    img = models.CharField(verbose_name='Img', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    author = models.CharField(verbose_name='Author', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    desc = models.TextField(verbose_name='Desc', blank=True, null=True)  # Field name made lowercase.
+    cid = models.IntegerField(verbose_name='CId', blank=True, null=True)  # Field name made lowercase.
+    cname = models.CharField(verbose_name='CName', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    bookstatus = models.CharField(verbose_name='BookStatus', max_length=20, blank=True, null=True)  # Field name made lowercase.
     add_time = models.IntegerField(blank=True, null=True)
-    score = models.DecimalField(db_column='Score', max_digits=12, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    score = models.DecimalField(verbose_name='Score', max_digits=12, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     sex = models.IntegerField(blank=True, null=True)
-    renqi = models.IntegerField(db_column='Renqi', blank=True, null=True)  # Field name made lowercase.
+    renqi = models.IntegerField(verbose_name='Renqi', blank=True, null=True)  # Field name made lowercase.
     week = models.IntegerField(blank=True, null=True)
     month = models.IntegerField(blank=True, null=True)
     total = models.IntegerField(blank=True, null=True)
-    lasttime = models.IntegerField(db_column='LastTime', blank=True, null=True)  # Field name made lowercase.
+    lasttime = models.IntegerField(verbose_name='LastTime', blank=True, null=True)  # Field name made lowercase.
     is_show = models.PositiveIntegerField()
-    lastchapterid = models.IntegerField(db_column='LastChapterId', blank=True, null=True)  # Field name made lowercase.
-    lastchapter = models.CharField(db_column='LastChapter', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    lastchapterid = models.IntegerField(verbose_name='LastChapterId', blank=True, null=True)  # Field name made lowercase.
+    lastchapter = models.CharField(verbose_name='LastChapter', max_length=255, blank=True, null=True)  # Field name made lowercase.
     sort_order = models.IntegerField(blank=True, null=True)
     sytype = models.IntegerField(blank=True, null=True)
 

@@ -15,6 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+import sys
+
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -37,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users',
-    'apps.books',
-    'apps.admins',
+    'users',
+    'books',
+    'admins',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +133,66 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = False
+
+CACHES = {
+    'default': {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+    'my_mysql_cache': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': '缓存表名称',
+    }
+}
+
+# token失效时间，设置为1天，开发可自行配置
+AUTH_TOKEN_AGE = 60 * 60 * 24
+
+REST_FRAMEWORK = {
+    # 重构renderer
+    'DEFAULT_RENDERER_CLASSES': (
+        'util.renderer.MyJSONRender',
+    ),
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     'django_filters.rest_framework.DjangoFilterBackend',
+    # )
+}
+
+# 跨域允许
+
+CORS_ALLOW_METHODS = (
+    'GET',
+    'POST',
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+)
+# 允许跨域的请求头，可以使用默认值，默认的请求头为
+# from corsheaders.defaults import default_headers
+# CORS_ALLOW_HEADERS = default_headers
+CORS_ALLOW_HEADERS = (
+    'XMLHttpRequest',
+    'X_FILENAME',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'Pragma',
+)
+
+# 跨域请求时，是否运行携带cookie,默认为False
+CORS_ALLOW_cREDENTIALS = True
+# 允许所有主机执行跨站点请求,默认为False
+# 如果没设置该参数，则必须设置白名单，运行部分白名单的主机才能执行跨站点请求
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Static files (CSS, JavaScript, Images)
