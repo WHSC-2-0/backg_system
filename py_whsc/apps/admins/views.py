@@ -2,17 +2,17 @@ from rest_framework import viewsets, mixins
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
-from admins.serializers import *
+from apps.admins.models import *
+from apps.admins.serializers import *
 from util.errors import ParameterException
 
 
 # 用户视图
-
-
 class WhAdminViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
                      mixins.RetrieveModelMixin, mixins.CreateModelMixin):
     queryset = WhAdmin.objects.all()
     serializer_class = WhAdminSerializer
+
     # authentication_classes = (WhAdminTokenAuthentication,)
 
     def list(self, request, *args, **kwargs):
@@ -51,18 +51,16 @@ class WhAdminViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
     def login(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         result = serializer.is_valid(raise_exception=False)
+
         if not result:
-            raise ParameterException({'code': '1005', 'msg': '注册数据未通过验证！'})
+            raise ParameterException({'code': '1005', 'msg': '登陆数据未通过验证！'})
         res = serializer.login_data(serializer.data)
         return Response(res)
 
-    @list_route(methods=['POST', "GET"],)
+    @list_route(methods=['POST', "GET"], )
     def logout(self, request, *args, **kwargs):
-        print(11111111111111111111)
         token = request.data.get("token")
-        print(token)
         user_id = cache.get(token)  # 获取token对相应的用户id
-        print(user_id)
         user = WhAdmin.objects.filter(admin_id=user_id).exists()
         data = {}
         if user:
@@ -71,3 +69,9 @@ class WhAdminViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
             data['msg'] = '账户已退出！！'
         return Response(data)
 
+
+# 分组视图
+class WhAdminGroupViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
+                     mixins.RetrieveModelMixin, mixins.CreateModelMixin):
+    queryset = WhAdminGroup.objects.all()
+    serializer_class = WhAdminGroupSerializer

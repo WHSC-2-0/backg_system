@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from admins.urls import Admin_router
+from apps.admins.urls import Admin_router
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
     path('ad/', include(Admin_router.urls)),
 ]
+admin.sites.AdminSite.site_header = '网红书城管理系统'
+admin.sites.AdminSite.site_title = '网红书城管理系统'
+admin.sites.AdminSite.index_title = '网红书城管理系统'

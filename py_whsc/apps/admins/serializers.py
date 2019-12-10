@@ -3,7 +3,7 @@ import uuid
 
 from django.core.cache import cache
 from rest_framework import serializers
-from admins.models import *
+from apps.admins.models import *
 from py_whsc.settings import AUTH_TOKEN_AGE
 from util.errors import ParameterException
 
@@ -154,10 +154,11 @@ class WhAdminLoginSerializer(serializers.Serializer):  # 登录序列化类
     def validate(self, attrs):  # 登录逻辑验证
         login_name = attrs.get("login_name")  # 接收用户传递的数据(用户姓名)
         login_pwd = attrs.get("login_pwd")  # 接收用户传递的数据(用户密码)
+        print(login_name, login_pwd)
+        print('1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111')
         if not WhAdmin.objects.filter(login_name=login_name).exists():
             print(111111)
             raise ParameterException({'code': '1004', 'msg': '用户不存在'})
-
         user = WhAdmin.objects.filter(login_name=login_name).first()
         print('加密密码：', user.login_pwd)
         if make_password(login_pwd) != user.login_pwd:
@@ -168,10 +169,10 @@ class WhAdminLoginSerializer(serializers.Serializer):  # 登录序列化类
     def login_data(self, validated_data):
         token = uuid.uuid4().hex
         user = WhAdmin.objects.filter(login_name=validated_data.get('login_name')).first()
-
         cache.set(token, user.admin_id, timeout=AUTH_TOKEN_AGE)  # 将token作为缓存的而言存储到缓存中，对应的value是用户id
         res = {
-            'token': token
+            'token': token,
+            'user': user.add_time
         }
         return res
 

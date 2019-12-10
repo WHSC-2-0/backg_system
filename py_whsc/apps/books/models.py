@@ -6,33 +6,62 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-# Unable to inspect table 'table'
-# The error was: (1146, "Table 'hfgdsfwsdsaf.table' doesn't exist")
 
 
-class SyBook(models.Model):
-    name = models.CharField(verbose_name='Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    img = models.CharField(verbose_name='Img', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    author = models.CharField(verbose_name='Author', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    desc = models.TextField(verbose_name='Desc', blank=True, null=True)  # Field name made lowercase.
-    cid = models.IntegerField(verbose_name='CId', blank=True, null=True)  # Field name made lowercase.
-    cname = models.CharField(verbose_name='CName', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    bookstatus = models.CharField(verbose_name='BookStatus', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    add_time = models.IntegerField(blank=True, null=True)
-    score = models.DecimalField(verbose_name='Score', max_digits=12, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    sex = models.IntegerField(blank=True, null=True)
-    renqi = models.IntegerField(verbose_name='Renqi', blank=True, null=True)  # Field name made lowercase.
-    week = models.IntegerField(blank=True, null=True)
-    month = models.IntegerField(blank=True, null=True)
-    total = models.IntegerField(blank=True, null=True)
-    lasttime = models.IntegerField(verbose_name='LastTime', blank=True, null=True)  # Field name made lowercase.
-    is_show = models.PositiveIntegerField()
-    lastchapterid = models.IntegerField(verbose_name='LastChapterId', blank=True, null=True)  # Field name made lowercase.
-    lastchapter = models.CharField(verbose_name='LastChapter', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    sort_order = models.IntegerField(blank=True, null=True)
-    sytype = models.IntegerField(blank=True, null=True)
+# 小说一级分类模型
+class WhTypeOne(models.Model):
+    tap_name = models.CharField(max_length=100, verbose_name='一级分类名称', blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'sy_book'
+        db_table = 'wh_type_one'
 
+
+# 小说分类二级模型
+class WhTypeChild(models.Model):
+    t = models.ForeignKey(WhTypeOne, on_delete=models.CASCADE, verbose_name='一级分类id', blank=True, null=True)
+    name = models.CharField(max_length=100, verbose_name='二级分类名称', blank=True, null=True)
+
+    class Meta:
+        db_table = 'wh_type_child'
+
+
+# 小说模型
+class WhBook(models.Model):
+    c = models.ForeignKey(WhTypeChild, on_delete=models.CASCADE, verbose_name='关联二级分类', blank=True, null=True)
+    b_name = models.CharField(max_length=100, verbose_name='书名', blank=True, null=True)
+    b_img = models.CharField(max_length=255, verbose_name='封面图片', blank=True, null=True)
+    b_desc = models.CharField(max_length=255, verbose_name='描述', blank=True, null=True)
+    b_auhtor = models.CharField(max_length=100, verbose_name='作者', blank=True, null=True)
+    b_content_url = models.CharField(max_length=100, verbose_name='内容地址', blank=True, null=True)
+    add_time = models.DateTimeField(verbose_name='上传时间', blank=True, null=True)
+    read_num = models.IntegerField(verbose_name='阅读量', blank=True, null=True)
+    new_chapter = models.CharField(max_length=50, verbose_name='最新章节', blank=True, null=True)
+
+    class Meta:
+        db_table = 'wh_book'
+
+
+# 目录模型
+class WhCatalog(models.Model):
+    book = models.ForeignKey(WhBook, on_delete=models.CASCADE, verbose_name='关联小说', blank=True, null=True)
+    c_name = models.CharField(max_length=50, verbose_name='章节名称', blank=True, null=True)
+    add_time = models.DateTimeField(verbose_name='添加时间', blank=True, null=True)
+
+    class Meta:
+        db_table = 'wh_catalog'
+
+
+class WhNotice(models.Model):
+    title = models.CharField(max_length=50, blank=True, null=True)
+    content = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'wh_notice'
+
+
+class WhReadlog(models.Model):
+    user_id = models.IntegerField(verbose_name='用户ID')
+    book_id = models.IntegerField(verbose_name='小说ID')
+
+    class Meta:
+        db_table = 'wh_readlog'

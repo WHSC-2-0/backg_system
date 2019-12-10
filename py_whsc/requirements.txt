@@ -1,8 +1,8 @@
+Django==2.2.3
 PyMySQL==0.9.3
 mysqlclient==1.4.6
 djangorestframework==3.9.4
-django-redis==4.10.0
-Django==2.2.7
+simpleui==3.2
 django-redis==4.10.0
 redis==3.3.11
 six==1.13.0
