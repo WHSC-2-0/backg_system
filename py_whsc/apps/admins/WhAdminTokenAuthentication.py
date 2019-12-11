@@ -1,7 +1,8 @@
 from django.core.cache import cache
 from rest_framework.authentication import TokenAuthentication, get_authorization_header
 
-from admins.models import WhAdmin
+# from admins.models import WhAdmin
+from apps.admins.models import WhAdmin
 from util.errors import ParameterException
 
 

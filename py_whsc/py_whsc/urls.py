@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from apps.admins.urls import Admin_router
+from apps.books.urls import Book_router
 
 urlpatterns = [
     path('', admin.site.urls),
     path('ad/', include(Admin_router.urls)),
+    path('book/', include(Book_router.urls)),
 ]
 admin.sites.AdminSite.site_header = '网红书城管理系统'
 admin.sites.AdminSite.site_title = '网红书城管理系统'
