@@ -45,12 +45,15 @@ INSTALLED_APPS = [
     'apps.books',
     'apps.config',
     'apps.users',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    # 跨域请求中间件
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -178,8 +181,10 @@ CORS_ALLOW_METHODS = (
     "DELETE",
     "OPTIONS",
 )
+
 # 允许跨域的请求头，可以使用默认值，默认的请求头为
 # from corsheaders.defaults import default_headers
+
 # CORS_ALLOW_HEADERS = default_headers
 CORS_ALLOW_HEADERS = (
     'XMLHttpRequest',
