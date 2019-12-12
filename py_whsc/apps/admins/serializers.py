@@ -1,6 +1,5 @@
 import uuid
 
-
 from django.core.cache import cache
 from rest_framework import serializers
 from apps.admins.models import *
@@ -131,7 +130,7 @@ class WhAdminRegisterSerializer(serializers.Serializer):
         password = make_password(validated_data['login_pwd'])  # 对接收到的密码进行加密
 
         new_user = WhAdmin.objects.create(login_name=login_name, login_pwd=password,
-                                          add_time=add_time(),
+
                                           last_login_time=add_time(),
                                           login_time=add_time())
         result = {
@@ -178,6 +177,3 @@ class WhAdminLoginSerializer(serializers.Serializer):  # 登录序列化类
             'user': user.add_time
         }
         return res
-
-
-

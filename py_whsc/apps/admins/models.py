@@ -6,7 +6,7 @@ class WhAdminRole(models.Model):
     role_id = models.AutoField(primary_key=True, verbose_name='角色ID')
     parent_role_id = models.IntegerField(verbose_name='父级角色ID', blank=True, null=True)
     role_name = models.CharField(max_length=64, verbose_name='角色名称', blank=True, null=True)
-    add_time = models.CharField(max_length=32, verbose_name='添加时间', blank=True, null=True)
+    add_time = models.DateTimeField(verbose_name='添加时间', blank=True, null=True)
     description = models.CharField(max_length=200, name='角色描述', verbose_name='角色描述')
 
     class Meta:
@@ -44,8 +44,8 @@ class WhAdmin(models.Model):
     login_name = models.CharField(max_length=60, verbose_name='管理员账号', blank=True, null=True)
     login_pwd = models.CharField(max_length=32, verbose_name='管理员密码', blank=True, null=True)
     login_pwd1 = models.CharField(max_length=32, verbose_name='确认管理员密码', blank=True, null=True)
-    add_time = models.CharField(max_length=32, verbose_name='添加时间', blank=True, null=True)
-    last_login_time = models.CharField(max_length=32, verbose_name='上次登录时间', blank=True, null=True)
+    add_time = models.DateTimeField(verbose_name='添加时间', blank=True, null=True)
+    last_login_time = models.DateTimeField(verbose_name='上次登录时间', blank=True, null=True)
     login_time = models.CharField(max_length=32, verbose_name='登录时间', blank=True, null=True)
     last_ip = models.CharField(max_length=15, verbose_name='上次登录ip', blank=True, null=True)
     pwd2 = models.CharField(max_length=32, verbose_name='二级密码', blank=True, null=True)

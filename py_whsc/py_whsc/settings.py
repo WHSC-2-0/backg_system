@@ -160,6 +160,9 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'util.renderer.MyJSONRender',
     ),
+    # "DEFAULT_AUTHENTICATION_CLASSES": (
+    #     "apps.admins.WhAdminTokenAuthentication",
+    # )
     # 'DEFAULT_FILTER_BACKENDS': (
     #     'django_filters.rest_framework.DjangoFilterBackend',
     # )

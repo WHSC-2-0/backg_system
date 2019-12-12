@@ -11,7 +11,7 @@ from django.db import models
 # 轮播图
 class WhBanner(models.Model):
     img = models.CharField(max_length=255, verbose_name='图片', blank=True, null=True)
-    time = models.CharField(max_length=32, verbose_name='上传时间', null=True, blank=True)
+    time = models.DateTimeField(verbose_name='上传时间', null=True, blank=True)
     jump_url = models.CharField(max_length=255, verbose_name='跳转路径', blank=True, null=True)
 
     class Meta:
