@@ -15,22 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
 from apps.admins.urls import Admin_router
 from apps.books.urls import Book_router
-<<<<<<< HEAD
 from apps.config.urls import Banner_router
-=======
->>>>>>> 5add4948dc349778cc15d3f8544390916c0fe4a5
 
 urlpatterns = [
     path('', admin.site.urls),
     path('ad/', include(Admin_router.urls)),
     path('book/', include(Book_router.urls)),
-<<<<<<< HEAD
     path('ban/', include(Banner_router.urls)),
-=======
->>>>>>> 5add4948dc349778cc15d3f8544390916c0fe4a5
 ]
 admin.sites.AdminSite.site_header = '网红书城管理系统'
 admin.sites.AdminSite.site_title = '网红书城管理系统'
