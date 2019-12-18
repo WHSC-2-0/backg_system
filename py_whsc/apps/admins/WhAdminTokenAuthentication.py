@@ -6,7 +6,7 @@ from apps.admins.models import WhAdmin
 from util.errors import ParameterException
 
 
-class WhAdminTokenAuthentication(TokenAuthentication):
+class WhTokenAuthentication(TokenAuthentication):
     def authenticate(self, request):
         try:
             token = request.data.get('token') if request.data.get('token') else request.query_params.get(

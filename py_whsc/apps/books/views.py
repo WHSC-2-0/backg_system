@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
 
-from apps.admins import WhAdminTokenAuthentication
+from apps.admins.WhAdminTokenAuthentication import WhTokenAuthentication
 from apps.books import models
 from apps.books.serializers import *
 
@@ -11,14 +11,26 @@ class WhBookViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
                      mixins.RetrieveModelMixin, mixins.CreateModelMixin):
     queryset = WhBook.objects.all()
     serializer_class = WhBookSerializer
-    authentication_classes = (WhAdminTokenAuthentication,)
+    authentication_classes = (WhTokenAuthentication,)
+
+    def list(self, request, *args, **kwargs):
+        print(131313212313131)
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     # 新增书籍
     @list_route(methods=["POST"], serializer_class=WhBookSerializer)
     def add_book(self, request, *args, **kwargs):
         c_id = request.query_params.get("c_id")
         status = request.query_params.get("status")
-        
+
 
         """
         此处获取用户选择的数据
