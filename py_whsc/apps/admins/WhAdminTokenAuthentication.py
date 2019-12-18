@@ -1,12 +1,20 @@
 from django.core.cache import cache
-from rest_framework.authentication import TokenAuthentication, get_authorization_header
+from rest_framework.authentication import BaseAuthentication
 
+<<<<<<< HEAD
 # from admins.models import WhAdmin
+=======
+>>>>>>> 5add4948dc349778cc15d3f8544390916c0fe4a5
 from apps.admins.models import WhAdmin
 from util.errors import ParameterException
 
 
+<<<<<<< HEAD
 class WhTokenAuthentication(TokenAuthentication):
+=======
+class WhTokenAuthentication(BaseAuthentication):
+
+>>>>>>> 5add4948dc349778cc15d3f8544390916c0fe4a5
     def authenticate(self, request):
         try:
             token = request.data.get('token') if request.data.get('token') else request.query_params.get(

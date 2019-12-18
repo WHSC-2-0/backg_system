@@ -12,7 +12,6 @@ class WhAdminViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
                      mixins.RetrieveModelMixin, mixins.CreateModelMixin):
     queryset = WhAdmin.objects.all()
     serializer_class = WhAdminSerializer
-
     # authentication_classes = (WhAdminTokenAuthentication,)
 
     def list(self, request, *args, **kwargs):

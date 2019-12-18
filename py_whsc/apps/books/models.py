@@ -33,7 +33,7 @@ class WhBook(models.Model):
     b_desc = models.CharField(max_length=255, verbose_name='描述', blank=True, null=True)
     b_auhtor = models.CharField(max_length=100, verbose_name='作者', blank=True, null=True)
     b_content_url = models.CharField(max_length=100, verbose_name='内容地址', blank=True, null=True)
-    add_time = models.CharField(max_length=32, verbose_name='上传时间', blank=True, null=True)
+    add_time = models.DateTimeField(verbose_name='上传时间', blank=True, null=True)
     read_num = models.IntegerField(verbose_name='阅读量', blank=True, null=True)
     new_chapter = models.CharField(max_length=50, verbose_name='最新章节', blank=True, null=True)
 
@@ -45,7 +45,7 @@ class WhBook(models.Model):
 class WhCatalog(models.Model):
     book = models.ForeignKey(WhBook, on_delete=models.CASCADE, verbose_name='关联小说', blank=True, null=True)
     c_name = models.CharField(max_length=50, verbose_name='章节名称', blank=True, null=True)
-    add_time = models.CharField(max_length=32, verbose_name='添加时间', blank=True, null=True)
+    add_time = models.DateTimeField(verbose_name='添加时间', blank=True, null=True)
 
     class Meta:
         db_table = 'wh_catalog'

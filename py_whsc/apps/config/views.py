@@ -212,3 +212,5 @@ class WhBannerViewSet(ModelViewSet):
             return Response('delete OK!')
         else:
             return Response('delete Failed!')
+
+
